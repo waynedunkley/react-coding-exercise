@@ -5,7 +5,7 @@ import { mount } from 'enzyme'
 import configureStore from 'redux-mock-store'
 import App from './App'
 
-jest.mock('./Events', () => function Events() {
+jest.mock('./Events', () => function Events () {
   return 'Events'
 })
 
