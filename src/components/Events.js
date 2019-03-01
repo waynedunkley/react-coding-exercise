@@ -9,7 +9,7 @@ import EventsTitle from './EventsTitle/EventsTitle'
 
 const Events = ({ classes, ready, events }) => (
   <div className={classes.container}>
-    <EventsTitle />
+    <EventsTitle ready={ready} total={events.length} />
     {!ready && <p>Loading...</p>}
     {ready && (
       <div className={classes.tilesWrapper}>
