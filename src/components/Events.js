@@ -6,11 +6,12 @@ import { getEvents, isEventsReady } from '../selectors'
 import theme from '../style/theme'
 import Event from './Event'
 import EventsTitle from './EventsTitle/EventsTitle'
+import Loading from './Loading/Loading'
 
 const Events = ({ classes, ready, events }) => (
   <div className={classes.container}>
     <EventsTitle ready={ready} total={events.length} />
-    {!ready && <p>Loading...</p>}
+    {!ready && <Loading />}
     {ready && (
       <div className={classes.tilesWrapper}>
         <div className={classes.tiles}>
