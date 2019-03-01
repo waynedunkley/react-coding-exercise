@@ -3,17 +3,13 @@ import injectSheet from 'react-jss'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getEvents, isEventsReady } from '../selectors'
-import Icon from './Icon'
-import titleIcon from '../icons/vivid-angle-top-left.svg'
 import theme from '../style/theme'
 import Event from './Event'
+import EventsTitle from './EventsTitle/EventsTitle'
 
 const Events = ({ classes, ready, events }) => (
   <div className={classes.container}>
-    <h3 className={classes.title}>
-      <Icon className={classes.titleIcon} symbol={titleIcon} />
-      Results
-    </h3>
+    <EventsTitle />
     {!ready && <p>Loading...</p>}
     {ready && (
       <div className={classes.tilesWrapper}>
@@ -33,15 +29,6 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps),
   injectSheet({
-    title: {
-      paddingLeft: 20,
-      position: 'relative'
-    },
-    titleIcon: {
-      position: 'absolute',
-      left: 0,
-      top: 5
-    },
     tilesWrapper: {
       margin: [0, 'auto'],
       maxWidth: theme.maxTileWidth,
