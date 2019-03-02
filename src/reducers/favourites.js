@@ -1,5 +1,5 @@
 import { ActionType } from 'redux-promise-middleware'
-import { FETCH_FAVOURITES_TYPE } from '../actions'
+import { FETCH_FAVOURITES_TYPE, TOGGLE_FAVOURITE_TYPE } from '../actions'
 
 const initialState = {
   busy: false,
@@ -12,6 +12,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         favourites: action.payload.reduce((o, key) => ({ ...o, [key]: true }), {})
+      }
+    case TOGGLE_FAVOURITE_TYPE:
+      return {
+        ...state,
+        favourites: {
+          ...state.favourites,
+          [action.payload.entityId]: (state.favourites[action.payload.entityId]) ? !state.favourites[action.payload.entityId] : true
+        }
       }
     default:
       return state
