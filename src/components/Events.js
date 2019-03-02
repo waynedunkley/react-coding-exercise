@@ -2,29 +2,36 @@ import React from 'react'
 import injectSheet from 'react-jss'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { getEvents, isEventsReady } from '../selectors'
+import { getEvents, isEventsReady, getEventsError } from '../selectors'
 import theme from '../style/theme'
 import Event from './Event'
 import EventsTitle from './EventsTitle/EventsTitle'
 import Loading from './Loading/Loading'
+import Error from './Error/Error'
 
-const Events = ({ classes, ready, events }) => (
+const Events = ({ classes, ready, events, eventsError }) => (
   <div className={classes.container}>
-    <EventsTitle ready={ready} total={events.length} />
-    {!ready && <Loading />}
-    {ready && (
-      <div className={classes.tilesWrapper}>
-        <div className={classes.tiles}>
-          {events.map(event => <Event key={event.id} className={classes.tile} content={event} />)}
-        </div>
+    {eventsError && <Error />}
+    {!eventsError &&
+      <div>
+        <EventsTitle ready={ready} total={events.length} />
+        {!ready && <Loading />}
+        {ready && (
+          <div className={classes.tilesWrapper}>
+            <div className={classes.tiles}>
+              {events.map(event => <Event key={event.id} className={classes.tile} content={event} />)}
+            </div>
+          </div>
+        )}
       </div>
-    )}
+    }
   </div>
 )
 
 const mapStateToProps = (state) => ({
   ready: isEventsReady(state),
-  events: getEvents(state)
+  events: getEvents(state),
+  eventsError: getEventsError(state)
 })
 
 export default compose(

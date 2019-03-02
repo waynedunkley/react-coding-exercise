@@ -11,7 +11,8 @@ const reducer = (state = initialState, action) => {
     case `${FETCH_EVENTS_TYPE}_${ActionType.Pending}`:
       return {
         ...state,
-        busy: true
+        busy: true,
+        error: null
       }
     case `${FETCH_EVENTS_TYPE}_${ActionType.Fulfilled}`:
       return {
