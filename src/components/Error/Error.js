@@ -7,16 +7,12 @@ import { eventTypeIdFilterSelector, getEventsApiUrl } from '../../selectors'
 import { fetchEvents } from '../../middlewares/events'
 import theme from '../../style/theme'
 
-const reFetchEvents = (dispatch, apiUrl, eventTypeId) => {
-  dispatch(fetchEventsActionCreator(fetchEvents(apiUrl, eventTypeId)))
-}
-
-const Error = ({ classes, dispatch, apiUrl, eventTypeId, ready }) => (
+const Error = ({ classes, apiUrl, eventTypeId, reFetchEvents }) => (
   <div className={classes.container}>
     <div>
       <h3>Oh no, somethings gone wrong!!</h3>
       <p>Don't worry its not your fault.</p>
-      <button onClick={() => reFetchEvents(dispatch, apiUrl, eventTypeId)} className={classes.button}>Try reloading content</button>
+      <button onClick={() => reFetchEvents(apiUrl, eventTypeId)} className={classes.button}>Try reloading content</button>
       <p>If all else fails, go back to <a href='http://localhost:3000' className={classes.link}>event listings</a> and try something new until we can fix it.</p>
     </div>
   </div>
@@ -27,8 +23,12 @@ const mapStateToProps = (state) => ({
   eventTypeId: eventTypeIdFilterSelector(state)
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  reFetchEvents: (apiUrl, eventTypeId) => dispatch(fetchEventsActionCreator(fetchEvents(apiUrl, eventTypeId)))
+})
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   injectSheet({
     container: {
       display: 'flex',
