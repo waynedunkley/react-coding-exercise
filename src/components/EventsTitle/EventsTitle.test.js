@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import React from 'react'
 import EventsTitle from './EventsTitle'
 import { shallow } from 'enzyme'
@@ -9,7 +10,7 @@ describe('EventsTitle component', () => {
   })
 
   it('renders with totals', () => {
-    const wrapper = shallow(<EventsTitle ready={true} total={30} />)
+    const wrapper = shallow(<EventsTitle ready total={30} />)
     expect(wrapper).toMatchSnapshot('EventsTitle with values')
   })
 })
