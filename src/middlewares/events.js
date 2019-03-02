@@ -4,7 +4,7 @@ import { fetchEventsActionCreator, REHYDRATED } from '../actions'
 import { eventTypeIdFilterSelector, getEventsApiUrl } from '../selectors'
 import qs from 'query-string'
 
-const fetchEvents = async (apiUrl, eventTypeId) => {
+export const fetchEvents = async (apiUrl, eventTypeId) => {
   let url = apiUrl
   if (eventTypeId) {
     url += '?' + qs.stringify({ eventTypeId })
